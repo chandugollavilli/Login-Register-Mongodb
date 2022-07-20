@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>register form</title>
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+   
+<div class="form-container">
+
+   <form action="" method="post">
+      <h3>register now</h3>
+      <input type="text" name="name" id="name" required placeholder="enter your name">
+      <input type="email" name="email" id="email" required placeholder="enter your email">
+      <input type="password" name="password" id="password" required placeholder="enter your password">
+      <input type="button" name="button" value="register now" class="form-btn" onclick="registerdata()">
+      <p>already have an account? <a href="Loginform">login now</a></p>
+   </form>
+
+</div>
+
+</body>
+<script>
+    function registerdata(){
+      var name=document.getElementById("name").value;
+      var email=document.getElementById("email").value;
+      var password=document.getElementById("password").value;
+      console.log(name+" "+ email+"   "+ password )
+      if(name.length<=0){
+        document.getElementById("message1").innerHTML="!Please enter a username"
+        name.focus();
+        
+      }
+          else if(email.length<=0){
+        document.getElementById("message2").innerHTML="!Please enter a valid mail"
+        mail.focus();
+        
+       
+      }
+      else if(password.length<=0){
+        document.getElementById("message3").innerHTML="!Please enter password"
+        password.focus();
+        
+      }
+      
+        var data = {
+          name: name,
+          email: email, 
+          password: password
+        }
+        console.log(data)
+        fetch('/registerdata', {
+          method:'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data2 => {
+          console.log(data2)
+          alert("Registration Successfully!");
+          window.location.href="/Loginform"
+        })
+        .catch((error)=>{
+          alert("Alreay exist")
+        })
+      }
+      
+    
+</script>
+</html>

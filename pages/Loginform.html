@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>login form</title>
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+   
+<div class="form-container">
+
+   <form action="" method="post">
+      <h3>login now</h3>
+      <input type="email" name="email" id="email" required placeholder="enter your email">
+      <input type="password" name="password" id="password" required placeholder="enter your password">
+      <input type="button" name="button" value="login now" class="form-btn" onclick="validation()">
+      <p>don't have an account? <a href="registerform">register now</a></p>
+   </form>
+
+</div>
+
+</body>
+<script>
+
+  function validation() {
+      
+    var email= document.getElementById('email').value; 
+    var password= document.getElementById('password').value;
+    
+    if(email.length<=0){
+        document.getElementById("message1").innerHTML="!Please enter your email"
+        email.focus();
+    }
+    else if(password.length<=0){
+        document.getElementById("message2").innerHTML="!Please enter password"
+        password.focus();
+    }
+    if(email.length!=0 && password.length!=0){
+        var data ={
+            email:email,
+            password:password,
+        }
+        // console.log(data);
+        fetch('/Logindata',{
+        method:'POST',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('success:',data);
+
+          window.location.href="/admin"
+        })
+        .catch((error)=>{
+          console.log(error)
+          alert("Not valid")
+        })
+    }
+    
+  };
+  
+   
+  </script>
+</html>
